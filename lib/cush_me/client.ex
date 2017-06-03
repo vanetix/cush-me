@@ -25,20 +25,24 @@ defmodule CushMe.Client do
   end
 
   def get_image("latest") do
-    with {:ok, images} <- get_images(), do: {:ok, List.last(images)}
+    with {:ok, [image | _]} <- get_images(), do: {:ok, image}
   end
 
   def get_image(match) when is_binary(match) do
     with {:ok, images} <- get_images() do
-      image = images
-              |> Enum.filter(fn(href) ->
-                href
-                |> String.replace(CushMe.url(), "")
-                |> String.contains?(match)
-              end)
-              |> Enum.random
+      matches = images
+                |> Enum.filter(fn(href) ->
+                  href
+                  |> String.replace(CushMe.url(), "")
+                  |> String.contains?(match)
+                end)
 
-      {:ok, image}
+      case matches do
+        [] ->
+          {:ok, "There doesn't seem to be a Cush for that occasion."}
+        list ->
+          {:ok, Enum.random(list)}
+      end
     end
   end
 end

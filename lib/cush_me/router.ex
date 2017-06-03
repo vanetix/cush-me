@@ -19,10 +19,10 @@ defmodule CushMe.Router do
         }
 
         send_resp(conn, 200, Poison.encode!(resp))
-      {:error, message} ->
+      {:error, error} ->
         resp = %{
           response_type: "ephemeral",
-          text: message
+          text: Exception.message(error)
         }
 
         send_resp(conn, 500, Poison.encode!(resp))
