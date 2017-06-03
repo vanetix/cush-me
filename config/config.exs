@@ -32,3 +32,9 @@ use Mix.Config
 config :cush_me,
   port: 8080,
   url: "http://cushfriday.com"
+
+try do
+  import_config "#{Mix.env}.exs"
+rescue
+  Mix.Config.LoadError -> IO.puts("No config found for #{Mix.env}")
+end

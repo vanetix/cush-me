@@ -6,6 +6,7 @@ defmodule CushMe.Router do
   plug :dispatch
 
   get "/" do
+    conn = conn |> Plug.Conn.put_resp_content_type("application/json")
     text = conn.query_string
            |> Plug.Conn.Query.decode
            |> Map.get("text", "")
