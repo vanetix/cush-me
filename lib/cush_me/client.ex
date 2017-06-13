@@ -35,7 +35,6 @@ defmodule CushMe.Client do
           |> find("#content a")
           |> attribute("href")
 
-
         if Keyword.get(opts, :cache, true) do
           Cache.put(images)
         end
