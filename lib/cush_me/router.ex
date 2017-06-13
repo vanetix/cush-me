@@ -11,22 +11,21 @@ defmodule CushMe.Router do
            |> Plug.Conn.Query.decode
            |> Map.get("text", "")
 
-    case CushMe.Client.get_image(text) do
-      {:ok, image} ->
-        resp = %{
-          response_type: "in_channel",
-          text: URI.merge(CushMe.url(), image) |> to_string
-        }
+    resp =
+      case CushMe.Client.get_image(text) do
+        {:ok, image} ->
+          %{
+            response_type: "in_channel",
+            text: URI.merge(CushMe.url(), image) |> to_string
+          }
+        {:error, message} ->
+          %{
+            response_type: "ephemeral",
+            text: message
+          }
+      end
 
-        send_resp(conn, 200, Poison.encode!(resp))
-      {:error, message} ->
-        resp = %{
-          response_type: "ephemeral",
-          text: message
-        }
-
-        send_resp(conn, 500, Poison.encode!(resp))
-    end
+    send_resp(conn, 200, Poison.encode!(resp))
   end
 
   match _ do
