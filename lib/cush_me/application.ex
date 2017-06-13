@@ -9,6 +9,7 @@ defmodule CushMe.Application do
     import Supervisor.Spec, warn: false
 
     children = [
+      worker(CushMe.Cache, []),
       Plug.Adapters.Cowboy.child_spec(:http, CushMe.Router, [], [port: CushMe.port()])
     ]
 

@@ -15,14 +15,14 @@ defmodule CushMe.Router do
       {:ok, image} ->
         resp = %{
           response_type: "in_channel",
-          text: image
+          text: URI.merge(CushMe.url(), image) |> to_string
         }
 
         send_resp(conn, 200, Poison.encode!(resp))
-      {:error, error} ->
+      {:error, message} ->
         resp = %{
           response_type: "ephemeral",
-          text: Exception.message(error)
+          text: message
         }
 
         send_resp(conn, 500, Poison.encode!(resp))
