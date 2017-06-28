@@ -11,11 +11,11 @@ defmodule CushMe.Client do
   end
 
   def get_image("") do
-    {:ok, get_images() |> Enum.random()}
+    {:ok, get_images() |> Enum.random() |> build_url()}
   end
 
   def get_image("latest") do
-    with {:ok, [image | _]} <- fetch_images(), do: {:ok, image}
+    with {:ok, [image | _]} <- fetch_images(), do: {:ok, image |> build_url()}
   end
 
   def get_image(match) do
@@ -23,7 +23,7 @@ defmodule CushMe.Client do
       [] ->
         {:error, "There doesn't seem to be a Cush for that occasion."}
       list ->
-        {:ok, Enum.random(list)}
+        {:ok, list |> Enum.random() |> build_url()}
     end
   end
 
@@ -46,4 +46,6 @@ defmodule CushMe.Client do
         {:error, "Invalid status code received"}
     end
   end
+
+  defp build_url(image), do: URI.merge(CushMe.url(), image) |> to_string
 end
