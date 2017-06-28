@@ -10,7 +10,7 @@ defmodule CushMe.Application do
 
     children = [
       worker(CushMe.Cache, []),
-      Plug.Adapters.Cowboy.child_spec(:http, CushMe.Router, [], [port: CushMe.port()])
+      SlackCommand.child_spec(CushMe.Router)
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html

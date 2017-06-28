@@ -15,7 +15,7 @@ defmodule CushMe.Mixfile do
   # Type "mix help compile.app" for more information
   def application do
     # Specify extra applications you'll use from Erlang/Elixir
-    [applications: [:cowboy, :plug, :httpoison],
+    [applications: [:slack_command, :httpoison],
      extra_applications: [:logger],
      mod: {CushMe.Application, []}]
   end
@@ -30,10 +30,8 @@ defmodule CushMe.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:plug, "~> 1.3"},
-     {:cowboy, "~> 1.1"},
-     {:httpoison, "~> 0.11.2"},
-     {:poison, "~> 3.1"},
-     {:floki, "~> 0.17.2"}]
+    [{:httpoison, "~> 0.11.2"},
+     {:floki, "~> 0.17.2"},
+     {:slack_command, git: "git://github.com/vanetix/slack_command.git"}]
   end
 end

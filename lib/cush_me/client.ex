@@ -18,7 +18,7 @@ defmodule CushMe.Client do
     with {:ok, [image | _]} <- fetch_images(), do: {:ok, image}
   end
 
-  def get_image(match) when is_binary(match) do
+  def get_image(match) do
     case get_images() |> Enum.filter(&String.contains?(&1, match)) do
       [] ->
         {:error, "There doesn't seem to be a Cush for that occasion."}
