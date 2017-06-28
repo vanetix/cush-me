@@ -1,3 +1,3 @@
 use Mix.Config
 
-config SlackCommand, port: System.get_env("PORT") |> String.to_integer
+config :slack_command, port: System.get_env("PORT") |> String.to_integer

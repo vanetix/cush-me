@@ -31,7 +31,7 @@ use Mix.Config
 
 config :cush_me, url: "http://cushfriday.com"
 
-config SlackCommand, port: 8080
+config :slack_command, port: 8080
 
 try do
   import_config "#{Mix.env}.exs"
