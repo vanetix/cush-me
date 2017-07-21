@@ -21,7 +21,7 @@ defmodule CushMe.Client do
   def get_image(match) do
     case get_images() |> Enum.filter(&String.contains?(&1, match)) do
       [] ->
-        {:error, "There doesn't seem to be a Cush for that occasion."}
+        {:ok, "There doesn't seem to be a Cush for that occasion."}
       list ->
         {:ok, list |> Enum.random() |> build_url()}
     end
